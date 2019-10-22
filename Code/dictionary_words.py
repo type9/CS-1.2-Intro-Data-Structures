@@ -3,13 +3,10 @@ import sys
 from rearrange import rearrange
 
 DEBUG = True
-
-dictionary = open('/usr/share/dict/words', 'r')
-dictionary_list = list()
-
-if DEBUG:
-    print(dictionary)
 def random_sentence(num_words):
+    dictionary = open('/usr/share/dict/words', 'r')
+    dictionary_list = list()
+
     word_list = list() # final list of words
 
     num_lines = 0 # total word count
@@ -20,7 +17,8 @@ def random_sentence(num_words):
     rand_indexes = gen_rand_indexes(num_lines, num_words)
 
     for index in rand_indexes:
-        word_list.append(dictionary_list[index])
+        word = dictionary_list[index][:-2] # slices off new line char (last 2 indexes)
+        word_list.append(word)
     
     return rearrange(word_list)
 
