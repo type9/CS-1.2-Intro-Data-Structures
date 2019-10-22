@@ -1,14 +1,8 @@
 import random
 import sys
 
-DEBUG = False
-
-words = list()
-
-if DEBUG:
-    words = ['car', 'bar', 'star']
-
 def rearrange(my_list):
+
     for i in range(len(my_list)): # for every list element
         temp = my_list[i] # temp preparring for swap
 
@@ -20,9 +14,6 @@ def rearrange(my_list):
 
 if __name__=='__main__':
     words = sys.argv[1:]
-
-    if DEBUG:
-        print(rearrange(words))
 
     print(rearrange(words))
     
