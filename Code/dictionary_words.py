@@ -1,6 +1,6 @@
 import random
 import sys
-from rearrange import rearrange
+from fisheryates_shuffle import shuffle
 
 def random_sentence(num_words):
     dictionary = open('/usr/share/dict/words', 'r')
@@ -19,7 +19,7 @@ def random_sentence(num_words):
         word = dictionary_list[index][:-2] # slices off new line char (last 2 indexes)
         word_list.append(word)
     
-    return rearrange(word_list)
+    return shuffle(word_list)
 
 def gen_rand_indexes(num_lines, num_indexes):
     indexes = list()
