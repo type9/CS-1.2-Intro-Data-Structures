@@ -30,7 +30,7 @@ class Histogram():
         '''takes a histogram in the format ['word', int(word_count)] and
             returns number of unique words'''
 
-        unique_word_count = len(self.histogram[0]) # takes the length of each entry in the histogram (0 index)
+        unique_word_count = len(self.histogram) # takes the length of each entry in the histogram
 
         self.unique_words = unique_word_count
 
@@ -54,11 +54,11 @@ class Histogram():
     def sample_by_frequency(self):
         self.count_word_total()
         total_words = self.total_words
-        target = random.randint(0, self.total_words) # generates a target integer to find
+        target = random.randint(0, (self.total_words - 1)) # generates a target integer to find
 
         last_word = str()
         running_count = 0
-        for word in range(total_words + 1):
+        for word in range(total_words):
             last_word = self.histogram[word][0]
             running_count += self.histogram[word][1]
             if running_count >= target: # if we have passed the target with our count, we return the last word we used
@@ -79,7 +79,10 @@ def test_sample(histogram):
     histogram.count_unique_words()
     histogram.count_word_total()
 
-    for i in range(histogram.unique_words + 1):
+    print(sample_histogram.unique_words)
+    print(sample_histogram.histogram)
+
+    for i in range(sample_histogram.unique_words):
         word = sample_histogram.histogram[i][0]
 
         exp_freq = histogram.word_frequency(word)/histogram.total_words
