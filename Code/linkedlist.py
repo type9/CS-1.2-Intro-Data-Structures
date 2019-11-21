@@ -54,36 +54,84 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: Running time: O(n). Your loop only runs once for each item in the list."""
         # TODO: Loop through all nodes and count one for each
+        node = self.head
+        count = 0
+        while node:
+            count += 1
+            node = node.next
+        return count
+        
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: runtime is O because these is no loop"""
         # TODO: Create new node to hold given item
         # TODO: Append node after tail, if it exists
+        new_node = Node(item)
+        if self.is_empty():
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        TODO: runtime is O because no loop"""
         # TODO: Create new node to hold given item
         # TODO: Prepend node before head, if it exists
+        new_node = Node(item)
+        if self.is_empty():
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        TODO: Best case is O because we find it in the first node
+        TODO: Worst case in n because we find in the last node"""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+        node = self.head
+        while node:
+            if quality(node.data) == True:
+                return node.data
+            node = node.next
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        TODO: Best case is O because we find it in the first node
+        TODO: Worst case in n because we find in the last node"""
         # TODO: Loop through all nodes to find one whose data matches given item
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
+        node = self.head
+        prev_node = None
+        while node: # while we're still searching the list
+            if node.data == item: # if we find the item in this node
+                if self.head == self.tail: # if we're deleting an isolated node
+                    self.head = None
+                    self.tail = None
+                elif prev_node == None: # if we're deleting the current head
+                    self.head = node.next
+                elif node.next is None: # if we're deleting the current tail
+                    prev_node.next = None
+                    self.tail = prev_node
+                else: # if we're deleting somewhere in the middle
+                    prev_node.next = node.next
+                return # we've found the item so we return after its deleted
+            # if we don't find the item in this node
+            prev_node = node # we set the previous node to this node
+            node = node.next # and the current node the next node
+        raise ValueError('Item not found: {}'.format(item))
+            
+
 
 
 def test_linked_list():
